@@ -19,7 +19,6 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
         view.addSubviews(collectionView)
         setupLayout()
-        collectionView.reloadData()
         //HabitStore.shared.habits.removeAll()
         
         /// Navigation  Bar
