@@ -25,9 +25,9 @@ class HabitViewController: UIViewController {
     
     private lazy var textField: UITextField = {
         let textfield = UITextField()
-        textfield.placeholder = "Назови свою привычку"
+        textfield.placeholder = "Бегать по утрам, спать 8 часов и т.п."
         textfield.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        textfield.textColor = .systemGray
+        textfield.textColor = .black
         textfield.addTarget(self, action: #selector(setTitle), for: .editingDidEnd)
         return textfield
     }()
@@ -49,9 +49,20 @@ class HabitViewController: UIViewController {
         return time
     }()
     
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        let date = dataPicker.date
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.hour, .minute], from: date)
+        formatter.string(from: date)
+        formatter.timeStyle = .short
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+    
     private lazy var selectTimeField: UITextField = {
         let textField = UITextField()
-        textField.text = "12:00"
+        textField.text = "\(dateFormatter.string(from: dataPicker.date))"
         textField.textColor = UIColor(named: "violet")
         textField.inputView = dataPicker
         textField.tintColor = UIColor(named: "violet")
@@ -77,7 +88,7 @@ class HabitViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addGestureRecognizer(tap)
-        view.addSubviews(newTitle, colorTitle, timeTitle, textField, selectColorButton, timeText, selectTimeField)
+        view.addSubviews(newTitle, colorTitle, timeTitle, textField, selectColorButton, timeText, selectTimeField, dataPicker)
         setupLayout()
         
         /// Navigation  Bar
@@ -116,6 +127,7 @@ private extension HabitViewController {
         if #available(iOS 14.0, *) {
             let newColor = UIColorPickerViewController()
             newColor.delegate = self
+            newColor.selectedColor = selectColorButton.backgroundColor!
             present(newColor, animated: true, completion: nil)
         } else {
             // Fallback on earlier versions
@@ -123,9 +135,7 @@ private extension HabitViewController {
     }
     
     @objc func timeChanged() {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        selectTimeField.text = formatter.string(from: dataPicker.date)
+        selectTimeField.text = dateFormatter.string(from: dataPicker.date)
     }
     
     @objc func tapDone() {
@@ -159,7 +169,9 @@ private extension HabitViewController {
             timeText.topAnchor.constraint(equalTo: timeTitle.bottomAnchor, constant: 7),
             timeText.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             selectTimeField.leadingAnchor.constraint(equalTo: timeText.trailingAnchor, constant: 3),
-            selectTimeField.centerYAnchor.constraint(equalTo: timeText.centerYAnchor)
+            selectTimeField.centerYAnchor.constraint(equalTo: timeText.centerYAnchor),
+            dataPicker.topAnchor.constraint(equalTo: timeText.bottomAnchor, constant: -15),
+            dataPicker.widthAnchor.constraint(equalTo: view.widthAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
