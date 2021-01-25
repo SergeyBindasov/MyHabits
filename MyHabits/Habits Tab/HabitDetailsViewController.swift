@@ -12,15 +12,7 @@ class HabitDetailsViewController: UIViewController {
         return tv
         
     }()
-    
-    private lazy var textTitle: UILabel = {
-        let title = UILabel()
-        title.text = "АКТИВНОСТЬ"
-        title.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        title.textColor = .systemGray
-        return title
-    }()
-    
+
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = .current
@@ -38,7 +30,7 @@ class HabitDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "background")
-        view.addSubviews(tableView,textTitle)
+        view.addSubviews(tableView)
         setupLayout()
         title = setTitle
         
@@ -55,7 +47,6 @@ extension HabitDetailsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DetailsTableViewCell.self), for: indexPath) as! DetailsTableViewCell
-        
         let sortedDates = dates.sorted(by: {$0 > $1})
         let info = sortedDates[indexPath.item]
         cell.dateLabel.text =  dateFormatter.string(from: info)
@@ -64,6 +55,30 @@ extension HabitDetailsViewController: UITableViewDataSource {
             cell.tintColor = UIColor(named: "violet")
         } else { return cell }
         return cell }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 0))
+        header.backgroundColor = UIColor(named: "background")
+        
+        let textTitle: UILabel = {
+            let title = UILabel()
+            title.text = "АКТИВНОСТЬ"
+            title.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+            title.textColor = .systemGray
+            return title
+        }()
+        
+        header.addSubviews(textTitle)
+        
+        let constraints = [
+            textTitle.topAnchor.constraint(equalTo: header.topAnchor, constant: 20),
+            textTitle.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 16),
+            textTitle.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: -8)
+        ]
+        NSLayoutConstraint.activate(constraints)
+        
+        return header
+    }
 }
 
 extension HabitDetailsViewController: UITableViewDelegate{
@@ -83,15 +98,12 @@ extension HabitDetailsViewController {
 private extension HabitDetailsViewController {
     func setupLayout() {
         let constraints = [
-            textTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            textTitle.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            tableView.topAnchor.constraint(equalTo: textTitle.bottomAnchor, constant: 8),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ]
-        
         NSLayoutConstraint.activate(constraints)
     }
 }
