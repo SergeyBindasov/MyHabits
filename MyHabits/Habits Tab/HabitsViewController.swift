@@ -3,7 +3,7 @@ import UIKit
 
 class HabitsViewController: UIViewController {
     
-    private lazy var collectionView: UICollectionView = {
+    public lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: HabitCollectionViewCell.self))
@@ -14,6 +14,7 @@ class HabitsViewController: UIViewController {
         collection.showsVerticalScrollIndicator = false
         return collection
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,8 +135,8 @@ private extension HabitsViewController {
         _ = sender.tag
         let cell = sender.superview?.superview as! HabitCollectionViewCell
         if cell.markButton.backgroundColor == .white {
+            collectionView.reloadData()
             sender.backgroundColor = .init(cgColor: sender.layer.borderColor!)
-            HabitStore.shared.habit(cell.habit!, isTrackedIn: cell.habit!.date)
             HabitStore.shared.track(cell.habit!)
         } else { return }
     }

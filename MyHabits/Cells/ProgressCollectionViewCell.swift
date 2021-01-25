@@ -33,7 +33,6 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubviews(textLable, percentageLable, progressView)
