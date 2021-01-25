@@ -58,7 +58,7 @@ extension HabitsViewController: UICollectionViewDataSource {
             cell.backgroundColor = .white
             let progress = HabitStore.shared.todayProgress
             cell.progressView.progress = .init(progress)
-            cell.percentageLable.text = .init("\(String(Int(HabitStore.shared.todayProgress * 100)))%")
+            cell.percentageLabel.text = .init("\(String(Int(HabitStore.shared.todayProgress * 100)))%")
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
@@ -79,9 +79,8 @@ extension HabitsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section != 0 {
-            let sourceVC = HabitsViewController()
+            _ = HabitsViewController()
             let destinationVC = HabitDetailsViewController()
-            _ = UIStoryboardSegue(identifier: "details", source: sourceVC, destination: destinationVC)
             destinationVC.setTitle = HabitStore.shared.habits[indexPath.item].name
             destinationVC.habit = HabitStore.shared.habits[indexPath.item]
             navigationController?.pushViewController(destinationVC, animated: true)
@@ -146,10 +145,10 @@ private extension HabitsViewController {
 private extension HabitsViewController {
     func setupLayout() {
         let constraints = [
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class ProgressCollectionViewCell: UICollectionViewCell {
     
-    private var textLable: UILabel = {
+    private var textLabel: UILabel = {
         let text = UILabel()
         text.text = "Всё получится!"
         text.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
@@ -18,7 +18,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         return text
     }()
     
-    public var percentageLable: UILabel = {
+    public var percentageLabel: UILabel = {
         let lable = UILabel()
         lable.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         lable.textColor = .systemGray
@@ -35,7 +35,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubviews(textLable, percentageLable, progressView)
+        contentView.addSubviews(textLabel, percentageLabel, progressView)
         setupLayout()
     }
     
@@ -47,11 +47,11 @@ class ProgressCollectionViewCell: UICollectionViewCell {
 private extension ProgressCollectionViewCell {
     func  setupLayout() {
         let constraints = [
-            textLable.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            textLable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            percentageLable.centerYAnchor.constraint(equalTo: textLable.centerYAnchor),
-            percentageLable.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            progressView.topAnchor.constraint(equalTo: textLable.bottomAnchor, constant: 10),
+            textLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            percentageLabel.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor),
+            percentageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            progressView.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 10),
             progressView.heightAnchor.constraint(equalToConstant: 7),
             progressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             progressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)

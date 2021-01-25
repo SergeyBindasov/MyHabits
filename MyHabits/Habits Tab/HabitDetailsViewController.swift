@@ -43,7 +43,6 @@ class HabitDetailsViewController: UIViewController {
         title = setTitle
         
         /// Navigation  Bar
-        navigationController?.navigationBar.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(editNav))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "violet")
     }
@@ -59,7 +58,7 @@ extension HabitDetailsViewController: UITableViewDataSource {
         
         let sortedDates = dates.sorted(by: {$0 > $1})
         let info = sortedDates[indexPath.item]
-        cell.dateLable.text =  dateFormatter.string(from: info)
+        cell.dateLabel.text =  dateFormatter.string(from: info)
         if HabitStore.shared.habit(habit!, isTrackedIn: info) == true {
             cell.accessoryType = .checkmark
             cell.tintColor = UIColor(named: "violet")
