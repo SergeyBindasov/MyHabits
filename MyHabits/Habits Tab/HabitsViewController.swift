@@ -133,11 +133,16 @@ private extension HabitsViewController {
     @objc func buttonPressed(sender: UIButton) {
         _ = sender.tag
         let cell = sender.superview?.superview as! HabitCollectionViewCell
-        if cell.markButton.backgroundColor == .white {
+        let habit = cell.habit!
+        if HabitStore.shared.habit(habit, isTrackedIn: habit.date) {
+            sender.backgroundColor = .init(cgColor: sender.layer.borderColor!)
+        } else {
+            cell.markButton.backgroundColor = .white
             collectionView.reloadData()
             sender.backgroundColor = .init(cgColor: sender.layer.borderColor!)
             HabitStore.shared.track(cell.habit!)
-        } else { return }
+            return
+        }
     }
 }
 
