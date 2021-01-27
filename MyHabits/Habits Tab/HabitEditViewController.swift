@@ -11,8 +11,7 @@ import UIKit
 class HabitEditViewController: HabitViewController {
     
     var habit: Habit?
-    let details = HabitDetailsViewController()
-    
+   
     private lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.setTitle("Удалить привычку", for: .normal)
@@ -68,9 +67,7 @@ class HabitEditViewController: HabitViewController {
     @objc func deleteHabit() {
         guard let name = habit?.name else {return}
         let alert = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(name)?", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-        })
+        let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         let deleteHabit = UIAlertAction(title: "Удалить", style: .destructive, handler: { (action) in
             let habitToDelete = self.habit
             if let index = HabitStore.shared.habits.firstIndex(of: habitToDelete!) {
