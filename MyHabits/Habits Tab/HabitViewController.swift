@@ -2,28 +2,28 @@ import UIKit
 
 class HabitViewController: UIViewController {
     
-    private lazy var newTitle: UILabel = {
+    public lazy var newTitle: UILabel = {
         let title = UILabel()
         title.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         title.text = "НАЗВАНИЕ"
         return title
     }()
     
-    private lazy var colorTitle: UILabel = {
+    public lazy var colorTitle: UILabel = {
         let title = UILabel()
         title.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         title.text = "ЦВЕТ"
         return title
     }()
     
-    private lazy var timeTitle: UILabel = {
+    public lazy var timeTitle: UILabel = {
         let title = UILabel()
         title.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         title.text = "ВРЕМЯ"
         return title
     }()
     
-    private lazy var textField: UITextField = {
+    public lazy var textField: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "Бегать по утрам, спать 8 часов и т.п."
         textfield.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -32,14 +32,14 @@ class HabitViewController: UIViewController {
         return textfield
     }()
     
-    private lazy var timeText: UILabel = {
+    public lazy var timeText: UILabel = {
         let text = UILabel()
         text.text = "Каждый день в "
         text.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         return text
     }()
     
-    private lazy var dataPicker: UIDatePicker = {
+    public lazy var dataPicker: UIDatePicker = {
         let time = UIDatePicker()
         time.datePickerMode = .time
         time.preferredDatePickerStyle = .wheels
@@ -49,7 +49,7 @@ class HabitViewController: UIViewController {
         return time
     }()
     
-    private lazy var dateFormatter: DateFormatter = {
+    public lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         let date = dataPicker.date
         let calendar = Calendar.current
@@ -60,7 +60,7 @@ class HabitViewController: UIViewController {
         return formatter
     }()
     
-    private lazy var selectTimeField: UITextField = {
+    public lazy var selectTimeField: UITextField = {
         let textField = UITextField()
         textField.text = "\(dateFormatter.string(from: dataPicker.date))"
         textField.textColor = UIColor(named: "violet")
@@ -69,13 +69,14 @@ class HabitViewController: UIViewController {
         return textField
     }()
     
-    private lazy var selectColorButton: UIButton = {
+    public lazy var selectColorButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 15
         button.backgroundColor = .red
         button.addTarget(self, action: #selector(setColor), for: .touchUpInside)
         return button
     }()
+    
     
     /// Gesture
     private lazy var tap: UITapGestureRecognizer = {
