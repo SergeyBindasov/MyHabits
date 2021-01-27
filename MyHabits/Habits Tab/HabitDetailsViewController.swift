@@ -37,6 +37,11 @@ class HabitDetailsViewController: UIViewController {
         /// Navigation  Bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(editNav))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "violet")
+       
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationItem.largeTitleDisplayMode = .never
     }
 }
 

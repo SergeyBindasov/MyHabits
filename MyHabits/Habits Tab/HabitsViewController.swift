@@ -37,7 +37,7 @@ class HabitsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(true)
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
 }
