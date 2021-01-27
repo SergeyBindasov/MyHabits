@@ -62,6 +62,7 @@ class HabitEditViewController: HabitViewController {
         super.viewDidLoad()
         view.addSubviews(deleteButton)
         setupLayout()
+        title = "Править"
     }
     
     @objc func deleteHabit() {
@@ -120,6 +121,7 @@ private extension HabitEditViewController {
         }
         dismiss(animated: true, completion: nil)
     }
+   
 }
 
 
