@@ -11,6 +11,19 @@ import UIKit
 class HabitEditViewController: HabitViewController {
     
     var habit: Habit?
+    
+    let setTitle: () -> () = {
+        var habit: Habit?
+        let vc = HabitDetailsViewController()
+        vc.navigationController?.navigationBar.topItem?.title = habit?.name
+        print("test")
+    }
+    
+    let closeVC: () -> () = {
+        let vc = HabitDetailsViewController()
+        vc.dismiss(animated: true, completion: nil)
+        print ("ok")
+    }
    
     private lazy var deleteButton: UIButton = {
         let button = UIButton()
@@ -21,7 +34,7 @@ class HabitEditViewController: HabitViewController {
     }()
     
     /// UI Override
-    private lazy var NameTF: UITextField = {
+    private lazy var nameTF: UITextField = {
         let tf = UITextField()
         tf.text = habit?.name
         tf.textColor = habit?.color
@@ -29,8 +42,8 @@ class HabitEditViewController: HabitViewController {
     }()
     
     override var textField: UITextField {
-        get { return NameTF }
-        set { NameTF = newValue }
+        get { return nameTF }
+        set { nameTF = newValue }
     }
     
     private lazy var colorB: UIButton = {
@@ -69,12 +82,12 @@ class HabitEditViewController: HabitViewController {
         guard let name = habit?.name else {return}
         let alert = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(name)?", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        let deleteHabit = UIAlertAction(title: "Удалить", style: .destructive, handler: { (action) in
+        let deleteHabit = UIAlertAction(title: "Удалить", style: .destructive, handler: { [self] (action) in
             let habitToDelete = self.habit
             if let index = HabitStore.shared.habits.firstIndex(of: habitToDelete!) {
                 HabitStore.shared.habits.remove(at: index)
             }
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: closeVC)
         })
         alert.addAction(cancel)
         alert.addAction(deleteHabit)
@@ -119,7 +132,7 @@ private extension HabitEditViewController {
         if let index = HabitStore.shared.habits.firstIndex(of: habit!) {
             HabitStore.shared.habits[index] = changedHabit
         }
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: setTitle)
     }
    
 }

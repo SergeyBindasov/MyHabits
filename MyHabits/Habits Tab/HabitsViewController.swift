@@ -39,7 +39,6 @@ class HabitsViewController: UIViewController {
         super .viewDidDisappear(true)
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
 }
 
 extension HabitsViewController: UICollectionViewDataSource {

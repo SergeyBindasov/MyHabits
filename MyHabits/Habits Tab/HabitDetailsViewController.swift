@@ -32,7 +32,7 @@ class HabitDetailsViewController: UIViewController {
         view.backgroundColor = UIColor(named: "background")
         view.addSubviews(tableView)
         setupLayout()
-        title = setTitle
+        title = habit?.name
         
         /// Navigation  Bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(editNav))
