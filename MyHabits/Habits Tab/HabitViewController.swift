@@ -2,7 +2,15 @@ import UIKit
 
 class HabitViewController: UIViewController {
     
-    public lazy var newTitle: UILabel = {
+    var vcDelegate: CloseVcDelegate?
+    
+    var setTitleDelegate: SetTitleDelegate?
+    
+    var editMode = false
+    var habit: Habit?
+
+    
+  public lazy var newTitle: UILabel = {
         let title = UILabel()
         title.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         title.text = "НАЗВАНИЕ"
@@ -51,10 +59,6 @@ class HabitViewController: UIViewController {
     
     public lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        let date = dataPicker.date
-        let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([.hour, .minute], from: date)
-        formatter.string(from: date)
         formatter.timeStyle = .short
         formatter.dateFormat = "HH:mm"
         return formatter
@@ -77,6 +81,19 @@ class HabitViewController: UIViewController {
         return button
     }()
     
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        if editMode == true {
+            button.isHidden = false
+        } else {
+            button.isHidden = true
+        }
+        button.setTitle("Удалить привычку", for: .normal)
+        button.setTitleColor(.red, for: .normal)
+        button.addTarget(self, action: #selector(deleteHabit), for: .touchUpInside)
+        return button
+    }()
+    
     
     /// Gesture
     private lazy var tap: UITapGestureRecognizer = {
@@ -87,21 +104,43 @@ class HabitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = .white
         view.addGestureRecognizer(tap)
-        view.addSubviews(newTitle, colorTitle, timeTitle, textField, selectColorButton, timeText, selectTimeField, dataPicker)
+        view.addSubviews(newTitle, colorTitle, timeTitle, textField, selectColorButton, timeText, selectTimeField, dataPicker, deleteButton)
         setupLayout()
-        
         /// Navigation  Bar
-        title = "Создать"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(cancel))
         navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "violet")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(saveHabit))
-        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "violet")
+        
+        if editMode == false {
+            /// Navigation  Bar
+            title = "Создать"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(saveHabit))
+            navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "violet")
+        }
+        if editMode == true {
+            setHabit()
+            /// Navigation  Bar
+            title = "Править"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(overrideHabit))
+            navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "violet")
+        }
     }
 }
 
+
+
 private extension HabitViewController {
+    
+    func setHabit(){
+        textField.text = habit?.name
+        textField.textColor = habit?.color
+        selectColorButton.backgroundColor = habit?.color
+        guard let habitDate = habit?.date else { return }
+        selectTimeField.text = dateFormatter.string(from: habitDate)
+        
+    }
     
     @objc func cancel() {
         navigationController?.dismiss(animated: true, completion: nil)
@@ -112,11 +151,25 @@ private extension HabitViewController {
         guard let name = newName else {return}
         let newColor = selectColorButton.backgroundColor
         guard let color = newColor else {return}
-        
         let newHabit = Habit(name: name, date: dataPicker.date, color: color)
         let store = HabitStore.shared
         store.habits.append(newHabit)
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func overrideHabit() {
         
+        guard let changedHabit = habit else { return }
+        let newTitle = textField.text
+        let newColor = selectColorButton.backgroundColor
+        let newTime = dataPicker.date
+        changedHabit.name = newTitle ?? habit!.name
+        changedHabit.color = newColor ?? habit!.color
+        changedHabit.date = newTime
+        if let index = HabitStore.shared.habits.firstIndex(of: habit!) {
+            HabitStore.shared.habits[index] = changedHabit
+        }
+        setTitleDelegate?.setTittle(title: textField.text!)
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
@@ -141,6 +194,23 @@ private extension HabitViewController {
     
     @objc func tapDone() {
         view.endEditing(true)
+    }
+    
+    @objc func deleteHabit() {
+        guard let name = habit?.name else {return}
+        let alert = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(name)?", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let deleteHabit = UIAlertAction(title: "Удалить", style: .destructive, handler: { [self] (action) in
+            let habitToDelete = self.habit
+            if let index = HabitStore.shared.habits.firstIndex(of: habitToDelete!) {
+                HabitStore.shared.habits.remove(at: index)
+            }
+            self.dismiss(animated: true, completion: nil)
+            self.vcDelegate?.closeVC()
+        })
+        alert.addAction(cancel)
+        alert.addAction(deleteHabit)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -172,7 +242,11 @@ private extension HabitViewController {
             selectTimeField.leadingAnchor.constraint(equalTo: timeText.trailingAnchor, constant: 3),
             selectTimeField.centerYAnchor.constraint(equalTo: timeText.centerYAnchor),
             dataPicker.topAnchor.constraint(equalTo: timeText.bottomAnchor, constant: -15),
-            dataPicker.widthAnchor.constraint(equalTo: view.widthAnchor)
+            dataPicker.widthAnchor.constraint(equalTo: view.widthAnchor),
+            deleteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            deleteButton.widthAnchor.constraint(equalToConstant: 200),
+            deleteButton.heightAnchor.constraint(equalToConstant: 30),
+            deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }

@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		A50986B1256AE44E0032D7E3 /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50986B0256AE44E0032D7E3 /* HabitDetailsViewController.swift */; };
-		A55BA860256FE9DB00AF14BF /* HabitEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55BA85F256FE9DB00AF14BF /* HabitEditViewController.swift */; };
 		A5613D162551BABB00AA0059 /* AddSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5613D152551BABB00AA0059 /* AddSubview.swift */; };
 		A5808B03256C694A00EBAC8F /* DetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5808B02256C694A00EBAC8F /* DetailsTableViewCell.swift */; };
 		A580D445255C5286004AFF78 /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A580D444255C5286004AFF78 /* HabitCollectionViewCell.swift */; };
 		A59F48942551DF8800BF039D /* HabitsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59F48932551DF8800BF039D /* HabitsStore.swift */; };
+		A5CB2BCA25DFCB800024C221 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB2BC925DFCB800024C221 /* Protocols.swift */; };
 		A5CFFD332555B591000B7D44 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFFD322555B591000B7D44 /* HabitViewController.swift */; };
 		A5DD635C255C28E700C303B3 /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD635B255C28E700C303B3 /* ProgressCollectionViewCell.swift */; };
 		A5DD74902551919800632195 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD748F2551919800632195 /* AppDelegate.swift */; };
@@ -26,11 +26,11 @@
 
 /* Begin PBXFileReference section */
 		A50986B0256AE44E0032D7E3 /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
-		A55BA85F256FE9DB00AF14BF /* HabitEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitEditViewController.swift; sourceTree = "<group>"; };
 		A5613D152551BABB00AA0059 /* AddSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubview.swift; sourceTree = "<group>"; };
 		A5808B02256C694A00EBAC8F /* DetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableViewCell.swift; sourceTree = "<group>"; };
 		A580D444255C5286004AFF78 /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
 		A59F48932551DF8800BF039D /* HabitsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStore.swift; sourceTree = "<group>"; };
+		A5CB2BC925DFCB800024C221 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		A5CFFD322555B591000B7D44 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		A5DD635B255C28E700C303B3 /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
 		A5DD748C2551919800632195 /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,7 +59,6 @@
 			isa = PBXGroup;
 			children = (
 				A5CFFD322555B591000B7D44 /* HabitViewController.swift */,
-				A55BA85F256FE9DB00AF14BF /* HabitEditViewController.swift */,
 				A5DD74A92551A7DF00632195 /* HabitsViewController.swift */,
 				A50986B0256AE44E0032D7E3 /* HabitDetailsViewController.swift */,
 			);
@@ -78,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				A5613D152551BABB00AA0059 /* AddSubview.swift */,
+				A5CB2BC925DFCB800024C221 /* Protocols.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -200,9 +200,9 @@
 				A59F48942551DF8800BF039D /* HabitsStore.swift in Sources */,
 				A5613D162551BABB00AA0059 /* AddSubview.swift in Sources */,
 				A580D445255C5286004AFF78 /* HabitCollectionViewCell.swift in Sources */,
+				A5CB2BCA25DFCB800024C221 /* Protocols.swift in Sources */,
 				A5CFFD332555B591000B7D44 /* HabitViewController.swift in Sources */,
 				A5DD74902551919800632195 /* AppDelegate.swift in Sources */,
-				A55BA860256FE9DB00AF14BF /* HabitEditViewController.swift in Sources */,
 				A5808B03256C694A00EBAC8F /* DetailsTableViewCell.swift in Sources */,
 				A5DD74922551919800632195 /* SceneDelegate.swift in Sources */,
 				A5DD74AA2551A7DF00632195 /* HabitsViewController.swift in Sources */,

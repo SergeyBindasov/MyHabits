@@ -12,7 +12,7 @@ class HabitDetailsViewController: UIViewController {
         return tv
         
     }()
-
+    
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = .current
@@ -27,17 +27,17 @@ class HabitDetailsViewController: UIViewController {
     var habit: Habit?
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "background")
         view.addSubviews(tableView)
         setupLayout()
         title = habit?.name
-        
         /// Navigation  Bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action: #selector(editNav))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "violet")
-       
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -92,10 +92,13 @@ extension HabitDetailsViewController: UITableViewDelegate{
 
 extension HabitDetailsViewController {
     @objc func editNav() {
-        let newController = HabitEditViewController()
+        let newController = HabitViewController()
+        newController.editMode = true
         let navigationController = UINavigationController(rootViewController: newController)
         navigationController.modalPresentationStyle = .automatic
         newController.habit = habit
+        newController.setTitleDelegate = self
+        newController.vcDelegate = self
         present(navigationController, animated: true, completion: nil)
     }
 }
@@ -110,5 +113,15 @@ private extension HabitDetailsViewController {
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
+    }
+}
+
+extension HabitDetailsViewController: CloseVcDelegate, SetTitleDelegate {
+    func closeVC() {
+        navigationController?.popViewController(animated: false)
+    }
+    
+    func setTittle(title: String) {
+        navigationItem.title = title
     }
 }
