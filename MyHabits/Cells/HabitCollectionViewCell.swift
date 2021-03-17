@@ -25,6 +25,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     
     public var mainTitle: UILabel = {
         let title = UILabel()
+        title.numberOfLines = .zero
         title.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return title
     }()
@@ -84,6 +85,7 @@ private extension HabitCollectionViewCell {
         let constraints = [
             mainTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             mainTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            mainTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             timeTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             timeTitle.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 4),
             countTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),

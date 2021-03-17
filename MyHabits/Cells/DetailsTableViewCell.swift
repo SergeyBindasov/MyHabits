@@ -11,14 +11,14 @@ import UIKit
 class DetailsTableViewCell: UITableViewCell {
     
     
-    public lazy var dateLable: UILabel = {
+    public lazy var dateLabel: UILabel = {
         let date = UILabel()
         return date
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        contentView.addSubviews(dateLable)
+        contentView.addSubviews(dateLabel)
         setupLayout()
     }
     
@@ -31,9 +31,9 @@ class DetailsTableViewCell: UITableViewCell {
 extension DetailsTableViewCell {
     func setupLayout(){
         let constraints = [
-            dateLable.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            dateLable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            dateLable.bottomAnchor.constraint(equalTo: contentView.bottomAnchor , constant: -12),
+            dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor , constant: -12),
         ]
         NSLayoutConstraint.activate(constraints)
     }
